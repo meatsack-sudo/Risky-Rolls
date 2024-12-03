@@ -12,6 +12,8 @@
               <h1 class="display-5 fw-bold text-white">How bad is it?</h1>
               <div class="col-lg-6 mx-auto">
                 <p class="fs-5 mb-4">Input the number of attackers and defenders and I'll tell you whether or not your soldiers were sleeping on the job.</p>
+                {% from 'bootstrap5/form.html' import render_form %}
+                {{ render_form(form)}}
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                   <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Roll once</button>
                   <button type="button" class="btn btn-outline-light btn-lg px-4">To the death!</button>
