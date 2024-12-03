@@ -9,15 +9,20 @@
         {% include 'navbar.html' %}
         <div class="bg-dark text-secondary px-4 py-5 text-center">
             <div class="py-5">
-              <h1 class="display-5 fw-bold text-white">How bad is it?</h1>
+              <h1 class="display-5 fw-bold text-white">Lets roll some dice!</h1>
               <div class="col-lg-6 mx-auto">
                 <p class="fs-5 mb-4">Input the number of attackers and defenders and I'll tell you whether or not your soldiers were sleeping on the job.</p>
                 {% from 'bootstrap5/form.html' import render_form %}
-                {{ render_form(form)}}
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                  <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Roll once</button>
-                  <button type="button" class="btn btn-outline-light btn-lg px-4">To the death!</button>
+                <form method="POST">
+                  {{ form.csrf_token }}
+                  {{ form.attackers.label }} {{ form.attackers() }}
+                  {{ form.defenders.label }} {{ form.defenders() }}
+
+                  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" style="padding-top: 10px;">
+                    {{ form.roll_once(class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold") }}
+                    {{ form.roll_all(class="btn btn-outline-light btn-lg px-4") }}
                 </div>
+                </form>
               </div>
             </div>
           </div>
