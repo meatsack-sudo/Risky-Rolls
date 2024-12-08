@@ -18,11 +18,37 @@
                   {{ form.attackers.label }} {{ form.attackers() }}
                   {{ form.defenders.label }} {{ form.defenders() }}
 
-                  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" style="padding-top: 10px;">
+                  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" style="padding-top: 20px;">
+                    <!--Roll Once button-->
+                    <ul>
                     {{ form.roll_once(class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold") }}
-                    {{ form.roll_all(class="btn btn-outline-light btn-lg px-4") }}
+                    <p class="italic">Attack only once</p>
+                    </ul>
+                    
+                    <!--Roll All button-->
+                    <ul>
+                    {{ form.roll_all(class="btn btn-danger btn-lg px-4 me-sm-3 fw-bold") }}
+                    <p class="italic">Roll until attack or defense can roll no more</p>
+                    </ul>
                 </div>
                 </form>
+                <div class="result-message text-white text-center">
+                  {% if result_message %}
+                    <p class="fs-4 mt-4">{{ result_message }}</p>
+                    <p>
+                      <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                        How bad was it?
+                      </button>
+                    </p>
+                    <div style="min-height: 120px;">
+                      <div class="collapse collapse-horizontal container-sm" id="collapseWidthExample">
+                        <div class="card container-sm text-bg-light mb-3" style="width: 300px;">
+                          This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
               </div>
             </div>
           </div>
