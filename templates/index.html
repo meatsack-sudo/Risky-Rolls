@@ -42,12 +42,72 @@
                     </p>
                     <div style="min-height: 120px;">
                       <div class="collapse collapse-horizontal container-sm" id="collapseWidthExample">
-                        <div class="card container-sm text-bg-light mb-3" style="width: 300px;">
-                          This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
-                        </div>
+                        {% if to_the_death_flag %}
+                          {% for battle in history %}
+                            {% if battle.attacks_won == battle.defends_won %}
+                              <div class="card container-sm border-warning border-5 text-bg-light mb-3" style="width: 350px;">
+                                <h5 class="card-title text-warning">Battle Tied</h5>
+                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
+                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
+                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
+                              </div>
+                            {% endif %}
+
+                            {% if battle.attacks_won > battle.defends_won %}
+                              <div class="card container-sm border-success border-5 text-bg-light mb-3" style="width: 350px;">
+                                <h5 class="card-title text-success">Battle Won</h5>
+                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
+                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
+                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
+                              </div>
+                            {% endif %}
+
+                            {% if battle.attacks_won < battle.defends_won %}
+                              <div class="card container-sm border-danger border-5 text-bg-light mb-3" style="width: 350px;">
+                                <h5 class="card-title text-danger">Battle Lost</h5>
+                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
+                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
+                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
+                              </div>
+                            {% endif %}
+
+                          {% endfor %}
+                        {% endif %}
+
+                        {% if not to_the_death_flag %}
+                          {% for battle in history %}
+                              {% if battle.attacks_won == battle.defends_won %}
+                              <div class="card container-sm border-warning border-5 text-bg-light mb-3" style="width: 350px;">
+                                <h5 class="card-title text-warning">Battle Tied</h5>
+                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
+                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
+                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
+                              </div>
+                            {% endif %}
+
+                            {% if battle.attacks_won > battle.defends_won %}
+                              <div class="card container-sm border-success border-5 text-bg-light mb-3" style="width: 350px;">
+                                <h5 class="card-title text-success">Battle Won</h5>
+                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
+                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
+                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
+                              </div>
+                            {% endif %}
+
+                            {% if battle.attacks_won < battle.defends_won %}
+                              <div class="card container-sm border-danger border-5 text-bg-light mb-3" style="width: 350px;">
+                                <h5 class="card-title text-danger">Battle Lost</h5>
+                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
+                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
+                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
+                              </div>
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
                       </div>
                     </div>
                   {% endif %}
+                </div>                
                 </div>
               </div>
             </div>
