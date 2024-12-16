@@ -1,5 +1,6 @@
 import random
-from flask import Flask, render_template
+import secrets
+from flask import Flask, render_template, url_for
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField
@@ -99,7 +100,13 @@ def home():
         to_the_death_flag=to_the_death_flag,
         history=history
     )
-import random
+
+#Random page explanation
+@app.route("/how_random", methods=["GET"])
+def how_random():
+    return render_template(
+        "how_random.html"
+    )
 
 def roll_dice(num_attackers, num_defenders):
     # Determine number of attack dice (max 3, but attackers need at least 2 to attack)
@@ -125,8 +132,8 @@ def roll_dice(num_attackers, num_defenders):
     if not attacks_done and not defends_done:
         attacks_won = 0
         defends_won = 0
-        attack_rolls = [random.randint(1, 6) for _ in range(attack_dice)]
-        defense_rolls = [random.randint(1, 6) for _ in range(defend_dice)]
+        attack_rolls = [secrets.randbelow(6) for _ in range(attack_dice)]
+        defense_rolls = [secrets.randbelow(6) for _ in range(defend_dice)]
         attack_rolls.sort(reverse=True)
         defense_rolls.sort(reverse=True)
         logging.debug(f"Attack rolls: {attack_rolls}, Defense rolls: {defense_rolls}")

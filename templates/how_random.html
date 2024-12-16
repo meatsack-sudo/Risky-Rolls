@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html lang="en">
+{% include 'header.html' %}
+    <body>
+        {% include 'navbar.html' %}
+        <body>
+            <h1>Why We Use <code>secrets</code> for Random Numbers</h1>
+            
+            <p>Hey there, dice rollers! We know that luck can be a fickle friend, and when you’re on a losing streak, it’s tempting to blame the "random number generator." But we’re here to set the record straight and give you a peek behind the curtain on how our app keeps it fair, unpredictable, and (most importantly) truly random.</p>
+            
+            <h2>Why We Use <code>secrets</code> (and not <code>random</code>)</h2>
+            
+            <p>For generating random numbers, we’re using a Python library called <code>secrets</code>. But what makes it special? Unlike the standard <code>random</code> module, <code>secrets</code> gets its random numbers from something called a <strong>cryptographically secure random number generator (CSPRNG)</strong>. That’s a fancy way of saying it taps into system-level randomness — the kind that’s unpredictable, untraceable, and virtually impossible to guess. It’s the same kind of randomness used in things like encryption, secure passwords, and online security.</p>
+            
+            <h3>How Does It Work?</h3>
+            <p>Instead of using an algorithm that "feels random," <code>secrets</code> pulls randomness directly from the system’s <strong>entropy pool</strong>. This pool collects randomness from unpredictable sources like hardware noise, timing differences, and other small quirks of the system. It’s basically as close to "true randomness" as you’re going to get on a computer. This means every dice roll is unpredictable, even if someone somehow knew the last 1,000 rolls.</p>
+            
+            <h2>Why Not Use <code>random</code> Instead?</h2>
+            <p>Glad you asked! The <code>random</code> module is great for things like simulations, games, and quick randomness, but it’s not truly random. Instead, it uses something called a <strong>pseudo-random number generator (PRNG)</strong>. It’s "random" in the sense that it’s hard to see the pattern with your eyes, but if someone knew the "seed" (the starting point), they could predict every "random" number that comes next. Yikes!</p>
+            
+            <p>While <code>random</code> is totally fine for simple tasks, it’s not quite up to the challenge for **dice rolls that people take seriously**. Imagine a clever player figuring out the next roll in advance — not fun for anyone. That’s why we’re using <code>secrets</code> instead.</p>
+            
+            <h2>What Does This Mean for You?</h2>
+            <ul>
+              <li>Every dice roll is <strong>unpredictable</strong> and truly random.</li>
+              <li>Nobody (not even us!) can predict the next roll.</li>
+              <li>Blaming "the system" for bad luck? Sorry, but you might just be on a cold streak.</li>
+            </ul>
+            
+            <h3>TL;DR</h3>
+            <p>We use <code>secrets</code> to generate random numbers because it’s **more secure, more random, and less predictable** than the standard <code>random</code> module. Your dice rolls are safe from prediction, tampering, and manipulation. So, if the dice aren't in your favor, it’s not us — it’s just bad luck. Keep rolling, and your time will come!</p>
+          </body>
+    </body>
+{% include 'footer.html' %}
