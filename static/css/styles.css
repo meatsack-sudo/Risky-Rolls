@@ -1,5 +1,7 @@
 body{
     padding-top: 56px;
+    /* background: linear-gradient(135deg, #b9bcc7, #1c1f34); */
+    color: #1b1b1d; /* Light gray for text */
   }
 
 footer{

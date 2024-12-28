@@ -1,122 +1,74 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html lang="en">
 {% include 'header.html' %}
-    <body>
-        {% include 'navbar.html' %}
-        <div class="bg-dark text-secondary px-4 py-5 text-center">
-            <div class="py-5">
-              <h1 class="display-5 fw-bold text-white">Lets roll some dice!</h1>
-              <div class="col-lg-6 mx-auto">
-                <p class="fs-5 mb-4">Input the number of attackers and defenders and I'll tell you whether or not your soldiers were sleeping on the job.</p>
+<body>
+    {% include 'navbar.html' %}
+    <div class="bg-dark text-secondary px-4 py-5 text-center">
+        <div class="py-5">
+            <h1 class="display-5 fw-bold text-white">Let's roll some dice!</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="fs-5 mb-4">
+                    Input the number of attackers and defenders and I'll tell you whether your soldiers were sleeping on the job.
+                </p>
                 {% from 'bootstrap5/form.html' import render_form %}
-                <form method="POST">
-                  {{ form.csrf_token }}
-                  {{ form.attackers.label }} {{ form.attackers() }}
-                  {{ form.defenders.label }} {{ form.defenders() }}
-
-                  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" style="padding-top: 20px;">
-                    <!--Roll Once button-->
-                    <ul>
-                    {{ form.roll_once(class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold") }}
-                    <p class="italic">Attack only once</p>
-                    </ul>
-                    
-                    <!--Roll All button-->
-                    <ul>
-                    {{ form.roll_all(class="btn btn-danger btn-lg px-4 me-sm-3 fw-bold") }}
-                    <p class="italic">Roll until attack or defense can roll no more</p>
-                    </ul>
-                </div>
-                </form>
-                <div class="result-message text-white text-center">
-                  {% if result_message %}
-                    <p class="fs-4 mt-4">{{ result_message }}</p>
-                    <p>
-                      <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                        How bad was it?
-                      </button>
-                    </p>
-                    <div style="min-height: 120px;">
-                      <div class="collapse collapse-horizontal container-sm" id="collapseWidthExample">
-                        {% if to_the_death_flag %}
-                          {% for battle in history %}
-                            {% if battle.attacks_won == battle.defends_won %}
-                              <div class="card container-sm border-warning border-5 text-bg-light mb-3" style="width: 350px;">
-                                <h5 class="card-title text-warning">Battle Tied</h5>
-                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
-                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
-                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
-                              </div>
-                            {% endif %}
-
-                            {% if battle.attacks_won > battle.defends_won %}
-                              <div class="card container-sm border-success border-5 text-bg-light mb-3" style="width: 350px;">
-                                <h5 class="card-title text-success">Battle Won</h5>
-                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
-                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
-                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
-                              </div>
-                            {% endif %}
-
-                            {% if battle.attacks_won < battle.defends_won %}
-                              <div class="card container-sm border-danger border-5 text-bg-light mb-3" style="width: 350px;">
-                                <h5 class="card-title text-danger">Battle Lost</h5>
-                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
-                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
-                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
-                              </div>
-                            {% endif %}
-
-                          {% endfor %}
-                        {% endif %}
-
-                        {% if not to_the_death_flag %}
-                          {% for battle in history %}
-                              {% if battle.attacks_won == battle.defends_won %}
-                              <div class="card container-sm border-warning border-5 text-bg-light mb-3" style="width: 350px;">
-                                <h5 class="card-title text-warning">Battle Tied</h5>
-                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
-                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
-                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
-                              </div>
-                            {% endif %}
-
-                            {% if battle.attacks_won > battle.defends_won %}
-                              <div class="card container-sm border-success border-5 text-bg-light mb-3" style="width: 350px;">
-                                <h5 class="card-title text-success">Battle Won</h5>
-                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
-                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
-                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
-                              </div>
-                            {% endif %}
-
-                            {% if battle.attacks_won < battle.defends_won %}
-                              <div class="card container-sm border-danger border-5 text-bg-light mb-3" style="width: 350px;">
-                                <h5 class="card-title text-danger">Battle Lost</h5>
-                                <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
-                                <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
-                                <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
-                              </div>
-                            {% endif %}
-                          {% endfor %}
-                        {% endif %}
-                      </div>
+                <form method="POST" class="text-center">
+                    {{ form.csrf_token }}
+                    <div class="row g-3 justify-content-center align-items-center mb-4">
+                        <!-- Attackers Field -->
+                        <div class="col-md-4">
+                            <label for="attackers" class="form-label text-white">Attackers</label>
+                            {{ form.attackers(class="form-control text-center mx-auto", maxlength="3", style="width: 150px;") }}
+                        </div>
+                        <!-- Defenders Field -->
+                        <div class="col-md-4">
+                            <label for="defenders" class="form-label text-white">Defenders</label>
+                            {{ form.defenders(class="form-control text-center mx-auto", maxlength="3", style="width: 150px;") }}
+                        </div>
                     </div>
-                  {% endif %}
-                </div>                
+
+                    <!-- Buttons -->
+                    <div class="row g-3 justify-content-center align-items-center">
+                        <div class="col-md-4 text-center">
+                            {{ form.roll_once(class="btn btn-outline-info btn-lg px-4 fw-bold") }}
+                            <p class="fst-italic mt-2">Attack only once</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {{ form.roll_all(class="btn btn-danger btn-lg px-4 fw-bold") }}
+                            <p class="fst-italic mt-2">Roll until attack or defense can roll no more</p>
+                        </div>
+                    </div>
+                </form>
+
+                {% if result_message %}
+                <div class="result-message text-white text-center mt-4">
+                    <p class="fs-4">{{ result_message }}</p>
+                    <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+                        How bad was it?
+                    </button>
+                    <div class="collapse collapse-horizontal container-sm mt-3" id="collapseDetails" style="min-height: 120px;">
+                        {% for battle in history %}
+                        <div class="card container-sm border-{{ 'warning' if battle.attacks_won == battle.defends_won else 'success' if battle.attacks_won > battle.defends_won else 'danger' }} border-5 text-bg-light mb-3" style="width: 350px;">
+                            <h5 class="card-title text-{{ 'warning' if battle.attacks_won == battle.defends_won else 'success' if battle.attacks_won > battle.defends_won else 'danger' }}">
+                                {% if battle.attacks_won == battle.defends_won %}
+                                    Battle Tied
+                                {% elif battle.attacks_won > battle.defends_won %}
+                                    Battle Won
+                                {% else %}
+                                    Battle Lost
+                                {% endif %}
+                            </h5>
+                            <p>Attack rolls: {{ battle.attackers_dice }} | Defense rolls: {{ battle.defenders_dice }}</p>
+                            <p>Attacks won: {{ battle.attacks_won }} | Defends won: {{ battle.defends_won }}</p>
+                            <p>Attackers remaining: {{ battle.remaining_attackers }} | Defenders remaining: {{ battle.remaining_defenders }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-              </div>
+                {% endif %}
             </div>
-          </div>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+        </div>
+    </div>
     {% include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

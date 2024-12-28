@@ -16,8 +16,8 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 bootstrap = Bootstrap5(app)
 
 class RiskRolls(FlaskForm):
-    attackers = IntegerField('Attackers', validators=[NumberRange(min=2, message="Must have at least 2 attackers")])
-    defenders = IntegerField('Defenders', validators=[NumberRange(min=1, message="Must have at least 1 defender")])
+    attackers = IntegerField('Attackers', validators=[NumberRange(min=2, max=250, message="Must have at least 2 attackers")])
+    defenders = IntegerField('Defenders', validators=[NumberRange(min=1, max=250, message="Must have at least 1 defender")])
     roll_once = SubmitField('Roll Once')
     roll_all = SubmitField('To the death!')
 
@@ -132,8 +132,8 @@ def roll_dice(num_attackers, num_defenders):
     if not attacks_done and not defends_done:
         attacks_won = 0
         defends_won = 0
-        attack_rolls = [secrets.randbelow(6) for _ in range(attack_dice)]
-        defense_rolls = [secrets.randbelow(6) for _ in range(defend_dice)]
+        attack_rolls = [secrets.choice(range(1, 7)) for _ in range(attack_dice)]
+        defense_rolls = [secrets.choice(range(1, 7)) for _ in range(defend_dice)]
         attack_rolls.sort(reverse=True)
         defense_rolls.sort(reverse=True)
         logging.debug(f"Attack rolls: {attack_rolls}, Defense rolls: {defense_rolls}")
