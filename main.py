@@ -1,5 +1,6 @@
 import random
 import secrets
+import os
 from flask import Flask, render_template, url_for
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
@@ -12,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 bootstrap = Bootstrap5(app)
 
 class RiskRolls(FlaskForm):
@@ -166,4 +167,4 @@ def roll_dice(num_attackers, num_defenders):
         
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
